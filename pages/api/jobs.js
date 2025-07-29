@@ -1,6 +1,9 @@
+
+const { ADZUNA_APP_ID, ADZUNA_APP_KEY } = process.env
+
 export default async function handler(req, res) {
-  const app_id = process.env.b223eb6c;
-  const app_key = process.env.391a584960243c06be06066154d7efd3;
+  const app_id = ADZUNA_APP_ID
+  const app_key = ADZUNA_APP_KEY
 
   const { page = 1 } = req.query;
 

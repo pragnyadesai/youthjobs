@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Home() {
+const Home: FC = () => {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
@@ -101,9 +101,11 @@ export default function Home() {
     </div>
   );
 }
+
+
 'use client'; // Important for client-side React hooks
 
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 interface Job {
   id: string;
@@ -113,7 +115,7 @@ interface Job {
   redirect_url: string;
 }
 
-export default function Home() {
+const Job: FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -161,3 +163,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;

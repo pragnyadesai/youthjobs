@@ -101,3 +101,63 @@ export default function Home() {
     </div>
   );
 }
+'use client'; // Important for client-side React hooks
+
+import { useEffect, useState } from 'react';
+
+interface Job {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  redirect_url: string;
+}
+
+export default function Home() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchJobs() {
+      try {
+        const res = await fetch('/api/jobs');
+        const data = await res.json();
+        setJobs(data.jobs);
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchJobs();
+  }, []);
+
+  if (loading) return <p className="p-4">Loading jobs...</p>;
+
+  return (
+    <main className="p-8 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">Jobs for Teenagers</h1>
+      {jobs.length === 0 ? (
+        <p>No jobs found.</p>
+      ) : (
+        <ul className="space-y-6">
+          {jobs.map(job => (
+            <li key={job.id} className="border rounded p-4 shadow-sm">
+              <a
+                href={job.redirect_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xl font-semibold text-blue-600 hover:underline"
+              >
+                {job.title}
+              </a>
+              <p className="text-gray-600">{job.location}</p>
+              <p>{job.description.substring(0, 200)}...</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </main>
+  );
+}

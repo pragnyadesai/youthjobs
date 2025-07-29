@@ -1,3 +1,7 @@
+'use client'; // Important for client-side React hooks
+
+import { FC, useEffect, useState } from 'react';
+
 import Image from "next/image";
 
 const Home: FC = () => {
@@ -101,11 +105,6 @@ const Home: FC = () => {
     </div>
   );
 }
-
-
-'use client'; // Important for client-side React hooks
-
-import { FC, useEffect, useState } from 'react';
 
 interface Job {
   id: string;
